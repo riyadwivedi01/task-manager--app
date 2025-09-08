@@ -1,75 +1,176 @@
-import { Image } from 'expo-image';
-import { Platform, StyleSheet } from 'react-native';
-
-import { HelloWave } from '@/components/HelloWave';
-import ParallaxScrollView from '@/components/ParallaxScrollView';
-import { ThemedText } from '@/components/ThemedText';
-import { ThemedView } from '@/components/ThemedView';
+// app/(tabs)/index.tsx
+import { Ionicons } from '@expo/vector-icons';
+import { LinearGradient } from 'expo-linear-gradient';
+import { useRouter } from 'expo-router';
+import React from 'react';
+import { Image, StyleSheet, Text, TouchableOpacity } from 'react-native';
 
 export default function HomeScreen() {
+  const router = useRouter();
+
   return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
-      headerImage={
-        <Image
-          source={require('@/assets/images/partial-react-logo.png')}
-          style={styles.reactLogo}
-        />
-      }>
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Welcome!</ThemedText>
-        <HelloWave />
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 1: Try it</ThemedText>
-        <ThemedText>
-          Edit <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> to see changes.
-          Press{' '}
-          <ThemedText type="defaultSemiBold">
-            {Platform.select({
-              ios: 'cmd + d',
-              android: 'cmd + m',
-              web: 'F12',
-            })}
-          </ThemedText>{' '}
-          to open developer tools.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 2: Explore</ThemedText>
-        <ThemedText>
-          {`Tap the Explore tab to learn more about what's included in this starter app.`}
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 3: Get a fresh start</ThemedText>
-        <ThemedText>
-          {`When you're ready, run `}
-          <ThemedText type="defaultSemiBold">npm run reset-project</ThemedText> to get a fresh{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> directory. This will move the current{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> to{' '}
-          <ThemedText type="defaultSemiBold">app-example</ThemedText>.
-        </ThemedText>
-      </ThemedView>
-    </ParallaxScrollView>
+    <LinearGradient
+      colors={['#4facfe', '#00f2fe']}
+      style={styles.container}
+    >
+      <Text style={styles.title}>Welcome to Task Manager</Text>
+
+      <Image
+          source={{ uri: 'https://cdn-icons-png.flaticon.com/512/4276/4276743.png' }}
+        style={styles.image}
+      />
+
+      <TouchableOpacity style={styles.button} onPress={() => router.push('/tasks')}>
+        <Ionicons name="list" size={24} color="#fff" />
+        <Text style={styles.buttonText}>View Tasks</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity style={styles.button} onPress={() => router.push('/add-task')}>
+        <Ionicons name="add-circle-outline" size={24} color="#fff" />
+        <Text style={styles.buttonText}>Add New Task</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity style={styles.button} onPress={() => router.push('/profile')}>
+        <Ionicons name="person" size={24} color="#fff" />
+        <Text style={styles.buttonText}>Profile</Text>
+      </TouchableOpacity>
+    </LinearGradient>
   );
 }
 
 const styles = StyleSheet.create({
-  titleContainer: {
+  container: {
+    flex: 1,
+    padding: 20,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  title: {
+    fontSize: 30,
+    fontWeight: 'bold',
+    color: '#fff',
+    marginBottom: 30,
+    textAlign: 'center',
+  },
+  image: {
+    width: 140,
+    height: 140,
+    marginBottom: 30,
+  },
+  button: {
+    backgroundColor: '#2196F3',
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 8,
+    padding: 15,
+    borderRadius: 12,
+    marginVertical: 10,
+    width: '80%',
+    justifyContent: 'center',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.3,
+    shadowRadius: 4,
+    elevation: 5,
   },
-  stepContainer: {
-    gap: 8,
-    marginBottom: 8,
-  },
-  reactLogo: {
-    height: 178,
-    width: 290,
-    bottom: 0,
-    left: 0,
-    position: 'absolute',
+  buttonText: {
+    color: '#fff',
+    fontSize: 17,
+    fontWeight: 'bold',
+    marginLeft: 10,
   },
 });
+
+
+// import { Ionicons } from '@expo/vector-icons';
+// import { LinearGradient } from 'expo-linear-gradient';
+// import { useRouter } from 'expo-router';
+// import React from 'react';
+// import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+
+// export default function HomeScreen() {
+//   const router = useRouter();
+
+//   return (
+//     <LinearGradient
+//       colors={['#4facfe', '#00f2fe']}
+//       style={styles.container}
+//     >
+//       <Text style={styles.title}>Welcome to Task Manager</Text>
+
+//       <Image
+//         source={{ uri: 'https://cdn-icons-png.flaticon.com/512/4276/4276743.png' }}
+//         style={styles.image}
+//       />
+
+//       {/* View Tasks */}
+//       <TouchableOpacity style={styles.button} onPress={() => router.push('/tasks')}>
+//         <View style={styles.row}>
+//           <Ionicons name="list" size={22} color="#fff" />
+//           <Text style={styles.buttonText}>View Tasks</Text>
+//         </View>
+//       </TouchableOpacity>
+
+//       {/* Add Task */}
+//       <TouchableOpacity style={styles.button} onPress={() => router.push('/add-task')}>
+//         <View style={styles.row}>
+//           <Ionicons name="add-circle-outline" size={22} color="#fff" />
+//           <Text style={styles.buttonText}>Add New Task</Text>
+//         </View>
+//       </TouchableOpacity>
+
+//       {/* Profile */}
+//       <TouchableOpacity style={styles.button} onPress={() => router.push('/profile')}>
+//         <View style={styles.row}>
+//           <Ionicons name="person" size={22} color="#fff" />
+//           <Text style={styles.buttonText}>Profile</Text>
+//         </View>
+//       </TouchableOpacity>
+//     </LinearGradient>
+//   );
+// }
+
+// const styles = StyleSheet.create({
+//   container: {
+//     flex: 1,
+//     padding: 20,
+//     justifyContent: 'center',
+//     alignItems: 'center',
+//   },
+//   title: {
+//     fontSize: 30,
+//     fontWeight: 'bold',
+//     color: '#fff',
+//     marginBottom: 30,
+//     textAlign: 'center',
+//   },
+//   image: {
+//     width: 140,
+//     height: 140,
+//     marginBottom: 30,
+//   },
+//   button: {
+//     backgroundColor: '#2196F3',
+//     paddingVertical: 14,
+//     paddingHorizontal: 25,
+//     borderRadius: 12,
+//     marginVertical: 10,
+//     width: '80%',
+//     alignItems: 'center',
+//     shadowColor: '#000',
+//     shadowOffset: { width: 0, height: 4 },
+//     shadowOpacity: 0.3,
+//     shadowRadius: 4,
+//     elevation: 5,
+//   },
+//   row: {
+//     flexDirection: 'row',
+//     alignItems: 'center', // <-- aligns icon + text vertically
+//     justifyContent: 'center',
+//   },
+//   buttonText: {
+//     color: '#fff',
+//     fontSize: 17,
+//     fontWeight: 'bold',
+//     marginLeft: 10,
+//   },
+// });
